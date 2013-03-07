@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 
 from django.forms import ModelForm
-
+from django.core.context_processors import csrf
 from simple_blog.models import *
 
 class CommentForm(ModelForm):
@@ -34,8 +34,19 @@ def add_comment(request, pk):
 def post(request, pk):
     """Single post with comments and a comment form."""
     post = Post.objects.get(pk=int(pk))
-    d = dict(post=post, user=request.user)
-    return render_to_response("post.html", d)
+    comments = Comment.objects.filter(post=post)
+    d = dict(post=post, comments=comments, form=CommentForm(), user=request.user)
+    d.update(csrf(request))
+    return render_to_response("blog/post.html", d)
+
+def delete_comment(request, post_pk, pk=None):
+	"""Delete comments with primary key """
+	if not pk: pklst = request.POST.getlist("delete")
+	else: pklst = [pk]
+
+	for pk in pklst:
+	    Comment.objects.get(pk=pk).delete()
+	return HttpResponseRedirect(reverse("simple_blog.views.post", args=[post_pk])) 
 
 def main(request):
     """Main listing."""

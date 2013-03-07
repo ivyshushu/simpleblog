@@ -1,14 +1,43 @@
 {% extends "blog/bbase.html" %}
 
 {% block content %}
-    <div class="title">{{ post.title }}</div>
+    <div class="title"><h1>{{ post.title }}</h1></div>
     	<ul>
     		<div class="time">{{ post.created }}</div>
     		<div class="body">{{ post.body|linebreaks }}</div>
     	</ul>
 
 <!-- Comments  -->
+{% if comments %}
+    <p>Comments:</p>
+{% endif %}
 
+<form action="{% url simple_blog.delete_comment post.pk %}" method="POST">{% csrf_token %}
+{% for comment in comments %}
+    <div class="comment">
+    	<div class="time">{{ comment.created }} | {{ comment.author }}</div>
+    	<div class="body">{{ comment.body|linebreaks }}</div>
+        {% if user.is_staff %}
+            <input type="checkbox" name="delete" value="{{comment.pk}}">
+            <a href="{% url simple_blog.views.delete_comment post.pk %}">delete</a>
+        {% endif %}
+    </div>
+{% endfor %}
+{% if user.is_staff and comments %}
+    <p><input type="submit" value="Delete all selected"></p>
+    <br />
+{% endif %}
+</form>
+
+<div id="addc">Add a comment</div>
+<!-- Comment form-->
+<form action="{% url simple_blog.views.add_comment post.id %}" method="POST">{% csrf_token %}
+	<div id="cform">
+		Name: {{ form.author }}
+		<p>{{ form.body|linebreaks }}</p>
+	</div>
+	<div id="submit"><input type="submit" value="Submit"></div>
+</form>
 
 
 {% endblock %}
