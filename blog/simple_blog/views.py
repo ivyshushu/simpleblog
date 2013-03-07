@@ -13,24 +13,23 @@ class CommentForm(ModelForm):
 	class Meta:
 		model = Comment
 		exclude = ["post"]
-	def add_comment(request, pk):
-		"""Add a new comment"""
-		p = request.POST
 
-		if p.has_key("body") and p["body"]:
-			author = "Anonymous"
-			if p["author"]: 
-				author = p["author"]
 
-			comment = Comment(post=Post.objects.get(pk=pk))
-			cf = CommentForm(p, instance=comment)
-			cf.fields["author"].required = False
+def add_comment(request, pk):
+	"""Add a new comment"""
+	p = request.POST
 
-			comment = cf.save(commit=False)
-			comment.author = author
-			comment.save()
-        return HttpResponseRedirect(reverse("blog.simple_blog.views.post", args=[pk]))
+	if p.has_key("body") and p["body"]:
+		author = "Anonymous"
+		if p["author"]: author = p["author"]
+		comment = Comment(post=Post.objects.get(pk=pk))
+		cf = CommentForm(p, instance=comment)
+		cf.fields["author"].required = False
 
+		comment = cf.save(commit=False)
+		comment.author = author
+		comment.save()
+	return HttpResponseRedirect(reverse("blog.simple_blog.views.post", args=[pk]))
 
 def post(request, pk):
     """Single post with comments and a comment form."""

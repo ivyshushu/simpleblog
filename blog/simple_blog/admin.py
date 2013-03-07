@@ -1,5 +1,5 @@
 ###Admin
-from simple_blog.models import Post
+from simple_blog.models import Post, Comment
 from django.contrib import admin
 
 class PostAdmin(admin.ModelAdmin):
