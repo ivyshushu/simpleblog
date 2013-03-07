@@ -10,6 +10,7 @@
                 <ul>
                     <div class="time">{{ post.created }}</div>
                     <div class="body">{{ post.body|linebreaks }}</div>
+                    <div class="commentlink"><a href="{% url simple_blog.views.post post.pk %}">Comments</a></div>
                 </ul>
             {% endfor %}
         </ul>
