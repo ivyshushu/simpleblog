@@ -25,7 +25,7 @@ class Comment(models.Model):
 		"""send sms when new comment is added"""
 		if "notify" in kwargs and kwargs["notify"] == True:
 			message = "new comment just added!!!"
-			number = "+16134134223"
+			number = "+16314134223"
 			account_sid = 'AC25ef232740072dc660a9b676d9e5c992'
 			auth_token = 'ff5269d59167dedf051268d5ef3e4b91'
 			client = TwilioRestClient(account_sid, auth_token)
@@ -36,11 +36,6 @@ class Comment(models.Model):
 
 
 		super(Comment, self).save(*args, **kwargs)
-
-
-
-
-	
 
 
 
