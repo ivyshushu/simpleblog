@@ -25,10 +25,12 @@ def add_comment(request, pk):
 		comment = Comment(post=Post.objects.get(pk=pk))
 		cf = CommentForm(p, instance=comment)
 		cf.fields["author"].required = False
-
 		comment = cf.save(commit=False)
+		
 		comment.author = author
-		comment.save()
+		notify = True
+		if request.user.username == "ak": notify = False
+		comment.save(notify=notify)
 	return HttpResponseRedirect(reverse("simple_blog.views.post", args=[pk]))
 
 def post(request, pk):
