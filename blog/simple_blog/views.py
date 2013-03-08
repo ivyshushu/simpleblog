@@ -29,7 +29,7 @@ def add_comment(request, pk):
 		comment = cf.save(commit=False)
 		comment.author = author
 		comment.save()
-	return HttpResponseRedirect(reverse("blog.simple_blog.views.post", args=[pk]))
+	return HttpResponseRedirect(reverse("simple_blog.views.post", args=[pk]))
 
 def post(request, pk):
     """Single post with comments and a comment form."""

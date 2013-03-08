@@ -2,7 +2,7 @@
 
 {% block content %}
     <style type="text/css">
-        .main { margin-left: 25px; margin-top: 30px; }
+        .main { float: left; width: 500px; padding-right: 40px;}
         .time { font-size: 0.8em; margin-top: 2px; }
         .body { font-size: 1.1em; margin-top: 2px; }
         .commentlink { text-align: right; }
@@ -14,7 +14,7 @@
         .messages { margin-left: 20px; }
         .pagination { margin-top: 20px; margin-left: -20px; }
     </style>
-    
+
     <div class="main">
 
         <!-- Posts  -->
@@ -50,4 +50,63 @@
 
     </div>
 
+{% endblock %}
+
+{% block sidebar %}
+    <style type="text/css">
+        #sidebar{ 
+            float: right;  
+            width: 350px;
+            background-color: #eee; 
+            display: inline;
+            margin: auto;
+            padding: 9px 9px;
+            border: 1px;
+            font-size: 0.9em;
+        }
+
+        .image{
+            float: left;
+            display: block;
+            margin: auto;
+        }
+
+        .user-info{
+            float: right;
+            display: block;
+            font-size: 12px;
+            height: 160px;
+            line-height: 19px;
+        }
+
+        .user-intro{
+            float: left;
+            display: block;
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 19px;
+        }
+
+    </style>
+
+    <div id="sidebar">
+        <img src="http://img3.douban.com/icon/ul49299457-7.jpg" class="image" alt>
+        <div class="user-info">
+             From: &nbsp;
+             <br>
+             San Francisco, CA, United States
+             <br>
+             <span>h3mpseed</span>
+        </div>
+        <div class="user-intro">
+            <span id="intro_display">
+                Life is for living...
+                <br>
+                I'm not living
+                <br>
+                I'm just killing time....
+                <br>
+            </span>
+        </div>
+     </div>
 {% endblock %}

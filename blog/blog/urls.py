@@ -8,6 +8,8 @@ urlpatterns = patterns('',
 	url(r'^main/', 'simple_blog.views.main'),
 	url(r'^(\d+)/$','simple_blog.views.post'),
 	url(r'^add_comment/(\d+)/$', 'simple_blog.views.add_comment'),
+    url(r'^delete_comment/(\d+)/$', 'simple_blog.views.delete_comment'),
+    url(r'^delete_comment/(\d+)/(\d+)/$', 'simple_blog.views.delete_comment'),
     # Examples:
     # url(r'^$', 'blog.views.home', name='home'),
     # url(r'^blog/', include('blog.foo.urls')),

@@ -4,16 +4,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head> 
     <title>{% block title %}MyBlog{% endblock %}</title> 
-    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" charset="utf-8" />
+   <!-- <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" charset="utf-8" />-->
     <style type="text/css">
         * {
             color: #555;
             font-size: 0.95em;
         }
 
-        #menu a {
+        #wrapper {
+            width: 950px;
+            height: 2128px;
+            margin: auto;
+        }
+
+        #content {
+            margin: auto; 
+            width: 950px;
+            height: 2062px;
+        }
+
+        #menu a:hover {
             text-decoration: none;
             background: #eee;
+            background-color: #b0c4de;
             border-top: 1px solid #ccc;
             border-bottom: 1px solid #ccc;
             border-right: 2px solid #fff;
@@ -24,36 +37,35 @@
         }
 
         a:hover {
-            background: #eeebeb;
+            background-color: #b0c4de;
             border-top: 1px solid #aaa;
             border-bottom: 1px solid #aaa;
             color: #555;
         }
-
-        #container { margin: auto; width: 800px; border: 0px solid; }
+        
+        #container { margin: auto; width: 800px; height: 2062; border: 0px solid; display: inline;}
         p { font-size: 1.1em; }
         h3 { margin-right: 30px; display: inline; }
     </style>
 </head>
 
 <body>
-    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
-    <div id="container">
-        <div id="menu">
-            {% block nav-global %}
-
+    <div id="wrapper">
+        <div id="content">
+            <div id="menu">
+                {% block nav-global %}
                 <!-- MENU -->
                 <h3>MyBlog</h3>
                 {% if user.is_staff %}
                 <a href="{% url admin:index %}">Admin</a>
                 <a href="{% url admin:simple_blog_post_add%}">Add New Post</a>
                 {% endif %}
-
-            {% endblock %}
-        </div>
-
-        <div id="content">
-            {% block content %}{% endblock %}
+                {% endblock %}
+            </div>
+            <div id="container">
+               {% block content %} {% endblock %}
+               {% block sidebar %} {% endblock %} 
+            </div>
         </div>
     </div>
 
